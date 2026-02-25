@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-16"?>
+<ObjectRepositoryTargetData ContentHash="SKSPXacxm0qNxqoCB98pcA" xmlns="http://schemas.uipath.com/workflow/activities/uix" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <ObjectRepositoryTargetData.Data>
+    <TargetAnchorable x:Key="TargetAnchorable" BrowserURL="the-qrcode-generator.com" DesignTimeRectangle="9, 160, 1901, 869" ElementVisibilityArgument="Interactive" FullSelectorArgument="&lt;webctrl id='saveDownloadModal' tag='SECTION' /&gt;" Guid="f2f7a1d2-9b67-461f-baac-94b4a8390d58" ScopeSelectorArgument="&lt;html app='chrome.exe' title='The QR Code Generator (TQRCG): Create Free QR Codes' /&gt;" SearchSteps="Selector" Version="V6" WaitForReadyArgument="Interactive">
+      <imageRef attrName="InformativeScreenshot" originalValue="d9a9f97974515d1c449a71e6a5e7639e.jpg" xmlns="">0ZBUrLJiUnEeN7ZAUVtbLKA</imageRef>
+    </TargetAnchorable>
+    <x:String x:Key="ActivityType">Click</x:String>
+  </ObjectRepositoryTargetData.Data>
+</ObjectRepositoryTargetData>
