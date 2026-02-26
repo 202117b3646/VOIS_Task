@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="CloseAllApplications" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:si="clr-namespace:System.IO;assembly=System.Private.CoreLib" xmlns:uascw="clr-namespace:UiPath.Activities.System.Compression.Workflow;assembly=UiPath.System.Activities" xmlns:uasq="clr-namespace:UiPath.Activities.System.Queues;assembly=UiPath.System.Activities" xmlns:ue="clr-namespace:UiPath.Excel;assembly=UiPath.Excel.Activities" xmlns:ueab="clr-namespace:UiPath.Excel.Activities.Business;assembly=UiPath.Excel.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:umae="clr-namespace:UiPath.Mail.Activities.Enums;assembly=UiPath.Mail.Activities" xmlns:umame="clr-namespace:UiPath.MicrosoftOffice365.Activities.Mail.Enums;assembly=UiPath.Mail.Activities" xmlns:upr="clr-namespace:UiPath.Platform.ResourceHandling;assembly=UiPath.Platform" xmlns:usau="clr-namespace:UiPath.Shared.Activities.Utils;assembly=UiPath.Mail.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="CloseAllApplications" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=System.Private.CoreLib" xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=System.Private.CoreLib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data.Common" xmlns:si="clr-namespace:System.IO;assembly=System.Private.CoreLib" xmlns:ss="clr-namespace:System.Security;assembly=System.Private.CoreLib" xmlns:uascw="clr-namespace:UiPath.Activities.System.Compression.Workflow;assembly=UiPath.System.Activities" xmlns:uasq="clr-namespace:UiPath.Activities.System.Queues;assembly=UiPath.System.Activities" xmlns:ue="clr-namespace:UiPath.Excel;assembly=UiPath.Excel.Activities" xmlns:ueab="clr-namespace:UiPath.Excel.Activities.Business;assembly=UiPath.Excel.Activities" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:umae="clr-namespace:UiPath.Mail.Activities.Enums;assembly=UiPath.Mail.Activities" xmlns:umame="clr-namespace:UiPath.MicrosoftOffice365.Activities.Mail.Enums;assembly=UiPath.Mail.Activities" xmlns:upr="clr-namespace:UiPath.Platform.ResourceHandling;assembly=UiPath.Platform" xmlns:usau="clr-namespace:UiPath.Shared.Activities.Utils;assembly=UiPath.Mail.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="dt_report" Type="InArgument(sd:DataTable)" />
   </x:Members>
@@ -127,7 +127,10 @@
       <AssemblyReference>Microsoft.VisualBasic.Core</AssemblyReference>
     </sco:Collection>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Do the necessary procedures for ending the process (e.g., logout) and close the used applications." DisplayName="Close All Applications" sap:VirtualizedContainerService.HintSize="817.2,2684" sap2010:WorkflowViewState.IdRef="Sequence_2">
+  <Sequence sap2010:Annotation.AnnotationText="Do the necessary procedures for ending the process (e.g., logout) and close the used applications." DisplayName="Close All Applications" sap:VirtualizedContainerService.HintSize="817.2,2716.8" sap2010:WorkflowViewState.IdRef="Sequence_2">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="scg:Dictionary(x:String, x:Object)" sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="Config" />
+    </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
         <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -150,7 +153,7 @@
       </sap:WorkflowViewStateService.ViewState>
     </Assign>
     <ui:KillProcess ContinueOnError="{x:Null}" Process="{x:Null}" AppliesTo="All" DisplayName="Kill Process" sap:VirtualizedContainerService.HintSize="520,174.4" sap2010:WorkflowViewState.IdRef="KillProcess_1" ProcessName="Excel" />
-    <Sequence sap:VirtualizedContainerService.HintSize="520,2106.4" sap2010:WorkflowViewState.IdRef="Sequence_3">
+    <Sequence sap:VirtualizedContainerService.HintSize="520,2116" sap2010:WorkflowViewState.IdRef="Sequence_3">
       <Sequence.Variables>
         <Variable x:TypeArguments="x:String" Name="fileResource" />
         <Variable x:TypeArguments="x:String" Name="todayDate" />
@@ -160,6 +163,8 @@
         <Variable x:TypeArguments="x:Int32" Name="normalLowCount" />
         <Variable x:TypeArguments="si:FileInfo" Name="CompressedFile" />
         <Variable x:TypeArguments="scg:IEnumerable(ui:QueueItem)" Name="queueItems" />
+        <Variable x:TypeArguments="x:String" Name="str_UserName" />
+        <Variable x:TypeArguments="ss:SecureString" Name="Password" />
       </Sequence.Variables>
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -221,9 +226,9 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </ueab:ExcelProcessScopeX>
-      <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="486.4,242.4" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+      <ui:MultipleAssign DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="486.4,274.4" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
         <ui:MultipleAssign.AssignOperations>
-          <scg:List x:TypeArguments="ui:AssignOperation" Capacity="4">
+          <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
             <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_1">
               <ui:AssignOperation.To>
                 <OutArgument x:TypeArguments="x:String">[todayDate]</OutArgument>
@@ -256,6 +261,14 @@
                 <InArgument x:TypeArguments="x:Int32">[totalEmployees - highPriorityCount]</InArgument>
               </ui:AssignOperation.Value>
             </ui:AssignOperation>
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="x:String">[zipfile]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="x:String">C:\Users\gundu\Documents\QRCodes.zip</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
           </scg:List>
         </ui:MultipleAssign.AssignOperations>
         <sap:WorkflowViewStateService.ViewState>
@@ -265,20 +278,6 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </ui:MultipleAssign>
-      <Assign sap:VirtualizedContainerService.HintSize="486.4,174.4" sap2010:WorkflowViewState.IdRef="Assign_2">
-        <Assign.To>
-          <OutArgument x:TypeArguments="x:String">[zipfile]</OutArgument>
-        </Assign.To>
-        <Assign.Value>
-          <InArgument x:TypeArguments="x:String">["C:\Users\gundu\Documents\QRCodes.zip"]</InArgument>
-        </Assign.Value>
-        <sap:WorkflowViewStateService.ViewState>
-          <scg:Dictionary x:TypeArguments="x:String, x:Object">
-            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
-            <x:Boolean x:Key="IsPinned">False</x:Boolean>
-          </scg:Dictionary>
-        </sap:WorkflowViewStateService.ViewState>
-      </Assign>
       <uascw:CompressFiles CompressedResource="{x:Null}" Password="{x:Null}" ResourcesToArchive="{x:Null}" SecurePassword="{x:Null}" AllowDuplicateContentNames="False" CodePage="Default" CompressedFileInfo="[CompressedFile]" CompressedFileName="[zipfile]" CompressionLevel="Normal" DisplayName="Compress/Zip Files" EncryptionAlgorithm="Classic" sap:VirtualizedContainerService.HintSize="486.4,248" sap2010:WorkflowViewState.IdRef="CompressFiles_1" OverrideExistingFile="True">
         <uascw:CompressFiles.ContentToArchive>
           <scg:List x:TypeArguments="InArgument(x:String)" Capacity="1">
@@ -322,7 +321,15 @@
           </scg:Dictionary>
         </sap:WorkflowViewStateService.ViewState>
       </ui:GetQueueItems>
-      <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" ContinueOnError="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" ReplyTo="{x:Null}" ResourceAttachmentList="{x:Null}" ResourceAttachments="{x:Null}" Result="{x:Null}" SecurePassword="{x:Null}" TimeoutMS="{x:Null}" Action="Forward" AttachmentInputMode="FilePaths" Body="[&quot;The daily onboarding process has been completed.&quot; + Environment.NewLine +&#xA;&quot;All Employees Processed: &quot; + totalEmployees.ToString + Environment.NewLine +&#xA;&quot;High Priority Employees Processed: &quot; + highPriorityCount.ToString + Environment.NewLine +&#xA;&quot;Normal and Low Employees in Queue: &quot; + normalLowCount.ToString]" ConnectionMode="LegacyConfiguration" DisplayName="Send SMTP Email" Email="gunduchandana2002@gmail.com" EnableSSL="True" From="gunduchandana2002@gmail.com" sap:VirtualizedContainerService.HintSize="486.4,330.4" sap2010:WorkflowViewState.IdRef="SendMail_1" IgnoreCRL="False" IsBodyHtml="False" Password="nxmp vjjc rqxk twqk" Port="465" SecureConnection="Auto" Server="smtp.gmail.com" Subject="[&quot;Daily Onboarding Process Report  - &quot; +Now.ToString(&quot;dd-MM-yyyy&quot;)]" To="gunduchandana2002@gmail.com" UseISConnection="False" UseOAuth="False" UseRichTextEditor="True">
+      <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="MailCredentials" CacheStrategy="None" DisplayName="Get Credential" FolderPath="dandru.kumar@hcltech.com's workspace" sap:VirtualizedContainerService.HintSize="486.4,175.2" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[Password]" Username="[str_UserName]">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:GetRobotCredential>
+      <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" ContinueOnError="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" ResourceAttachmentList="{x:Null}" ResourceAttachments="{x:Null}" Result="{x:Null}" TimeoutMS="{x:Null}" Action="Forward" AttachmentInputMode="FilePaths" Body="[&quot;The daily onboarding process has been completed.&quot; + Environment.NewLine +&#xD;&#xA;&quot;All Employees Processed: &quot; + totalEmployees.ToString + Environment.NewLine +&#xD;&#xA;&quot;High Priority Employees Processed: &quot; + highPriorityCount.ToString + Environment.NewLine +&#xD;&#xA;&quot;Normal and Low Employees in Queue: &quot; + normalLowCount.ToString]" ConnectionMode="LegacyConfiguration" DisplayName="Send SMTP Email" Email="[str_UserName]" EnableSSL="True" From="[str_UserName]" sap:VirtualizedContainerService.HintSize="486.4,330.4" sap2010:WorkflowViewState.IdRef="SendMail_1" IgnoreCRL="False" IsBodyHtml="False" Port="465" SecureConnection="Auto" SecurePassword="[Password]" Server="smtp.gmail.com" Subject="[&quot;Daily Onboarding Process Report  - &quot; +Now.ToString(&quot;dd-MM-yyyy&quot;)]" To="[str_UserName]" UseISConnection="False" UseOAuth="False" UseRichTextEditor="True">
         <ui:SendMail.AttachmentsBackup>
           <usau:BackupSlot x:TypeArguments="umame:AttachmentInputMode" StoredValue="FilePaths">
             <usau:BackupSlot.BackupValues>
